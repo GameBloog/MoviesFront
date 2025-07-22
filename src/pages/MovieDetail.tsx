@@ -1,6 +1,6 @@
-import { useParams, Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { fetchMovieById } from '../services/api'
+import { useParams, Link } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { fetchMovieById } from "../services/api"
 
 interface Rating {
   Source: string
@@ -60,19 +60,19 @@ function Error({ message }: { message: string }) {
 export default function MovieDetailPage() {
   const { id } = useParams<{ id: string }>()
   const [movie, setMovie] = useState<MovieDetail | null>(null)
-  const [error, setError] = useState('')
+  const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (!id) return
 
     setLoading(true)
-    setError('')
+    setError("")
     setMovie(null)
 
     fetchMovieById(id)
       .then(setMovie)
-      .catch(() => setError('Filme não encontrado ou erro na busca'))
+      .catch(() => setError("Filme não encontrado ou erro na busca"))
       .finally(() => setLoading(false))
   }, [id])
 
@@ -80,7 +80,10 @@ export default function MovieDetailPage() {
   if (error) return <Error message={error} />
   if (!movie) return null
 
-  const posterSrc = movie.Poster && movie.Poster !== 'N/A' ? movie.Poster : '/fallback-poster.png'
+  const posterSrc =
+    movie.Poster && movie.Poster !== "N/A"
+      ? movie.Poster
+      : "/fallback-poster.png"
 
   return (
     <main className="p-4 sm:p-6 max-w-4xl mx-auto min-h-screen">
@@ -93,7 +96,8 @@ export default function MovieDetailPage() {
       </Link>
 
       <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-center sm:text-left">
-        {movie.Title} <span className="text-gray-400 font-normal">({movie.Year})</span>
+        {movie.Title}{" "}
+        <span className="text-gray-400 font-normal">({movie.Year})</span>
       </h1>
 
       <section className="flex flex-col sm:flex-row sm:gap-8 items-center sm:items-start mb-6">
@@ -105,17 +109,40 @@ export default function MovieDetailPage() {
         />
 
         <article className="flex-grow text-base sm:text-lg space-y-4 text-gray-200">
-          <p><strong>Gênero:</strong> {movie.Genre}</p>
-          <p><strong>Diretor:</strong> {movie.Director}</p>
-          <p><strong>Escritor:</strong> {movie.Writer}</p>
-          <p><strong>Atores:</strong> {movie.Actors}</p>
-          <p><strong>Classificação:</strong> {movie.Rated}</p>
-          <p><strong>Liberação:</strong> {movie.Released}</p>
-          <p><strong>Tempo de exibição:</strong> {movie.Runtime}</p>
-          <p><strong>Linguagem:</strong> {movie.Language}</p>
-          <p><strong>País:</strong> {movie.Country}</p>
-          <p><strong>Prêmios:</strong> {movie.Awards}</p>
-          <p><strong>Sinopse:</strong> <br />{movie.Plot}</p>
+          <p>
+            <strong>Gênero:</strong> {movie.Genre}
+          </p>
+          <p>
+            <strong>Diretor:</strong> {movie.Director}
+          </p>
+          <p>
+            <strong>Escritor:</strong> {movie.Writer}
+          </p>
+          <p>
+            <strong>Atores:</strong> {movie.Actors}
+          </p>
+          <p>
+            <strong>Classificação:</strong> {movie.Rated}
+          </p>
+          <p>
+            <strong>Liberação:</strong> {movie.Released}
+          </p>
+          <p>
+            <strong>Tempo de exibição:</strong> {movie.Runtime}
+          </p>
+          <p>
+            <strong>Linguagem:</strong> {movie.Language}
+          </p>
+          <p>
+            <strong>País:</strong> {movie.Country}
+          </p>
+          <p>
+            <strong>Prêmios:</strong> {movie.Awards}
+          </p>
+          <p>
+            <strong>Sinopse:</strong> <br />
+            {movie.Plot}
+          </p>
         </article>
       </section>
     </main>
