@@ -1,7 +1,9 @@
 const BASE_URL = "http://localhost:3000"
 
 export async function fetchMovies(query?: string) {
-  const url = query ? `${BASE_URL}/movies?q=${query}` : `${BASE_URL}/movies`
+  const url = query
+    ? `${BASE_URL}/movies?search=${query}`
+    : `${BASE_URL}/movies`
   const response = await fetch(url)
   return response.json()
 }
